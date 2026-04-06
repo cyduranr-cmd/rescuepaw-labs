@@ -1,0 +1,36 @@
+{
+  "_format": "hh3-sol-build-info-1",
+  "id": "solc-0_8_28-10061cde665820ec631b6dad9d32c60fd9f06d99",
+  "solcVersion": "0.8.28",
+  "solcLongVersion": "0.8.28+commit.7893614a",
+  "compilerType": "solc",
+  "userSourceNameMap": {
+    "contracts/RescuePaw.sol": "project/contracts/RescuePaw.sol"
+  },
+  "input": {
+    "language": "Solidity",
+    "settings": {
+      "evmVersion": "cancun",
+      "outputSelection": {
+        "*": {
+          "": [
+            "ast"
+          ],
+          "*": [
+            "abi",
+            "evm.bytecode",
+            "evm.deployedBytecode",
+            "evm.methodIdentifiers",
+            "metadata"
+          ]
+        }
+      },
+      "remappings": []
+    },
+    "sources": {
+      "project/contracts/RescuePaw.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.28;\r\n\r\ncontract RescuePaw {\r\n\r\n    struct Perro {\r\n        string nombre;\r\n        string raza;\r\n        string color;\r\n        string tamano;\r\n        string distrito;\r\n        string zonaReferencia;\r\n        string imageHash;\r\n        address padrino;\r\n        uint verificaciones;\r\n        uint fondos;\r\n        uint nivelConfianza;\r\n    }\r\n\r\n    mapping(uint => Perro) public perros;\r\n    uint public contador;\r\n\r\n    address public owner;\r\n\r\n    constructor() {\r\n        owner = msg.sender;\r\n    }\r\n\r\n    event PerroRegistrado(uint id, string nombre, address padrino);\r\n    event Donacion(uint perroId, uint monto);\r\n    event Verificacion(uint perroId);\r\n    event Retiro(uint perroId, uint monto);\r\n\r\n    function registrarPerro(\r\n        string memory nombre,\r\n        string memory raza,\r\n        string memory color,\r\n        string memory tamano,\r\n        string memory distrito,\r\n        string memory zonaReferencia,\r\n        string memory imageHash,\r\n        uint nivelConfianza,\r\n        address padrino\r\n    ) public {\r\n\r\n        require(padrino != address(0), \"Wallet invalida\");\r\n\r\n        perros[contador] = Perro(\r\n            nombre,\r\n            raza,\r\n            color,\r\n            tamano,\r\n            distrito,\r\n            zonaReferencia,\r\n            imageHash,\r\n            padrino,\r\n            0,\r\n            0,\r\n            nivelConfianza\r\n        );\r\n\r\n        emit PerroRegistrado(contador, nombre, padrino);\r\n\r\n        contador++;\r\n    }\r\n\r\n    function donar(uint perroId) public payable {\r\n        require(perroId < contador, \"Perro no existe\");\r\n        require(msg.value > 0, \"Debe enviar dinero\");\r\n\r\n        perros[perroId].fondos += msg.value;\r\n\r\n        emit Donacion(perroId, msg.value);\r\n    }\r\n\r\n    function registrarVerificacion(uint perroId) public {\r\n        require(perroId < contador, \"Perro no existe\");\r\n\r\n        perros[perroId].verificaciones++;\r\n\r\n        emit Verificacion(perroId);\r\n    }\r\n\r\n    function retirarFondos(uint perroId) public {\r\n        require(perroId < contador, \"Perro no existe\");\r\n\r\n        Perro storage p = perros[perroId];\r\n\r\n        require(msg.sender == p.padrino, \"No eres el padrino\");\r\n        require(p.verificaciones >= 3, \"No cumple verificaciones\");\r\n        require(p.fondos > 0, \"No hay fondos\");\r\n\r\n        uint total = p.fondos;\r\n\r\n        uint comision = (total * 5) / 100;\r\n        uint pago = total - comision;\r\n\r\n        p.fondos = 0;\r\n\r\n        payable(p.padrino).transfer(pago);\r\n        payable(owner).transfer(comision);\r\n\r\n        emit Retiro(perroId, total);\r\n    }\r\n\r\n    function verPerro(uint perroId) public view returns (Perro memory) {\r\n        require(perroId < contador, \"Perro no existe\");\r\n        return perros[perroId];\r\n    }\r\n\r\n    function totalPerros() public view returns (uint) {\r\n        return contador;\r\n    }\r\n}"
+      }
+    }
+  }
+}

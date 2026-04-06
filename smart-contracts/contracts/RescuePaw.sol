@@ -26,7 +26,7 @@ contract RescuePaw {
         owner = msg.sender;
     }
 
-    event PerroRegistrado(uint id, string nombre);
+    event PerroRegistrado(uint id, string nombre, address padrino);
     event Donacion(uint perroId, uint monto);
     event Verificacion(uint perroId);
     event Retiro(uint perroId, uint monto);
@@ -39,8 +39,11 @@ contract RescuePaw {
         string memory distrito,
         string memory zonaReferencia,
         string memory imageHash,
-        uint nivelConfianza
+        uint nivelConfianza,
+        address padrino
     ) public {
+
+        require(padrino != address(0), "Wallet invalida");
 
         perros[contador] = Perro(
             nombre,
@@ -50,18 +53,19 @@ contract RescuePaw {
             distrito,
             zonaReferencia,
             imageHash,
-            msg.sender,
+            padrino,
             0,
             0,
             nivelConfianza
         );
 
-        emit PerroRegistrado(contador, nombre);
+        emit PerroRegistrado(contador, nombre, padrino);
 
         contador++;
     }
 
     function donar(uint perroId) public payable {
+        require(perroId < contador, "Perro no existe");
         require(msg.value > 0, "Debe enviar dinero");
 
         perros[perroId].fondos += msg.value;
@@ -70,22 +74,25 @@ contract RescuePaw {
     }
 
     function registrarVerificacion(uint perroId) public {
+        require(perroId < contador, "Perro no existe");
+
         perros[perroId].verificaciones++;
 
         emit Verificacion(perroId);
     }
 
     function retirarFondos(uint perroId) public {
+        require(perroId < contador, "Perro no existe");
 
         Perro storage p = perros[perroId];
 
-        require(p.padrino == msg.sender, "No eres el padrino");
+        require(msg.sender == p.padrino, "No eres el padrino");
         require(p.verificaciones >= 3, "No cumple verificaciones");
         require(p.fondos > 0, "No hay fondos");
 
         uint total = p.fondos;
 
-        uint comision = total * 5 / 100;
+        uint comision = (total * 5) / 100;
         uint pago = total - comision;
 
         p.fondos = 0;
@@ -97,6 +104,11 @@ contract RescuePaw {
     }
 
     function verPerro(uint perroId) public view returns (Perro memory) {
+        require(perroId < contador, "Perro no existe");
         return perros[perroId];
+    }
+
+    function totalPerros() public view returns (uint) {
+        return contador;
     }
 }
