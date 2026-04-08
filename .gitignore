@@ -1,0 +1,25 @@
+# Secretos (¡CRÍTICO!)
+.env
+*.env
+private.key
+
+# Node modules
+/node_modules
+**/node_modules/
+
+# Hardhat & Build
+/artifacts
+/cache
+/dist
+/types
+/coverage
+/typechain-types
+/bundle
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema
+.DS_Store
+Thumbs.db

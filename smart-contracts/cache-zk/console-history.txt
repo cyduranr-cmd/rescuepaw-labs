@@ -1,0 +1,4 @@
+await c.totalPerros();
+const c = RescuePaw.attach(addr);
+const RescuePaw = await ethers.getContractFactory("RescuePaw");
+const addr = "0x7E7a50ECA67412F1676Bf4c0bc68d92dB2281047"

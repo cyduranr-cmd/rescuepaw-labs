@@ -9,14 +9,18 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^7.0.0",
-    "@types/node": "^22.19.17",
-    "hardhat": "^3.3.0",
+    "@nomicfoundation/hardhat-toolbox": "^6.0.0",
+    "@types/node": "^22.0.0",
+    "ethers": "^6.13.5",
+    "hardhat": "^2.22.3",
     "typescript": "~5.8.0"
   },
   "dependencies": {
-    "dotenv": "^17.4.1"
+    "@matterlabs/hardhat-zksync-deploy": "^1.8.0",
+    "@matterlabs/hardhat-zksync-solc": "^1.5.1",
+    "axios": "^1.14.0",
+    "dotenv": "^17.4.1",
+    "zksync-ethers": "^6.21.1"
   }
 }

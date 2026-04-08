@@ -1,0 +1,41 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "D:\\proyecto sys\\rescuepaw-labs\\smart-contracts\\contracts\\RescuePaw.sol": {
+      "lastModificationDate": 1775532238923,
+      "contentHash": "57387910e0e2439f0a34adfbd5de7c3b",
+      "sourceName": "contracts/RescuePaw.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "RescuePaw"
+      ]
+    }
+  }
+}

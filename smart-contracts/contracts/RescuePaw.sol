@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.28;
+pragma solidity ^0.8.20;
 
 contract RescuePaw {
 
@@ -97,8 +97,11 @@ contract RescuePaw {
 
         p.fondos = 0;
 
-        payable(p.padrino).transfer(pago);
-        payable(owner).transfer(comision);
+        (bool successPago, ) = payable(p.padrino).call{value: pago}("");
+        require(successPago, "Fallo transferencia al padrino");
+
+        (bool successComision, ) = payable(owner).call{value: comision}("");
+        require(successComision, "Fallo transferencia de comision");
 
         emit Retiro(perroId, total);
     }
