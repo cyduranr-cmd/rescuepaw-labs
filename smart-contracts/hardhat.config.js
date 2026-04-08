@@ -1,15 +1,13 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("@matterlabs/hardhat-zksync-solc");
+require("@matterlabs/hardhat-zksync-deploy"); // Agregamos este para el deploy en zk
 require("dotenv").config();
 
 module.exports = {
   zksolc: {
-    version: "1.5.3", // <--- Actualizamos de 1.3.13 a 1.5.3
+    version: "1.5.3", 
     settings: {
-      // Agregamos esto para asegurar que el bytecode sea perfecto
-      optimizer: {
-        enabled: true,
-      },
+      optimizer: { enabled: true },
     },
   },
   solidity: {
@@ -24,7 +22,9 @@ module.exports = {
       url: "https://rpc-zk.tanenbaum.io/",
       chainId: 57057,
       accounts: [process.env.PRIVATE_KEY],
-      zksync: true, 
+      zksync: true, // Esto es vital para que Hardhat use el compilador zksolc
+      ethNetwork: "sepolia", // Indica que zkSYS es una L2 de prueba
+      verifyURL: "https://explorer-zk.tanenbaum.io/contract_verification"
     },
   },
 };

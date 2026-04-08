@@ -27,6 +27,20 @@ const commands = [
         .setName('ver_perro')
         .setDescription('Consulta los datos de un perro registrado')
         .addIntegerOption(option => option.setName('id').setDescription('ID del perro').setRequired(true)),
+
+    //COMANDO PARA ALIMENTAR
+    new SlashCommandBuilder()
+    .setName('alimentar')
+    .setDescription('Sube una foto alimentando al perro para sumar una verificacion')
+    .addIntegerOption(option => option.setName('id').setDescription('ID del perro').setRequired(true))
+    .addAttachmentOption(option => option.setName('foto').setDescription('Foto del perro comiendo').setRequired(true)),
+
+    // COMANDO PARA RETIRAR FONDOS (Solo para Padrinos con 3+ verificaciones)
+    new SlashCommandBuilder()
+        .setName('retirar_fondos')
+        .setDescription('El padrino retira los fondos acumulados (Requiere 3 verificaciones)')
+        .addIntegerOption(option => option.setName('id').setDescription('ID del perro').setRequired(true)),
+    
 ];
 
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);

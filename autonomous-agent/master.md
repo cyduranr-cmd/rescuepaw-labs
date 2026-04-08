@@ -12,3 +12,7 @@ El Agente supervisa que la lógica de retiro se cumpla estrictamente bajo los si
 
 3. **Inmutabilidad:**
     - Una vez que el Agente firma la aprobación de un registro, los datos son definitivos. El Agente no tiene poder para modificar registros existentes, solo para validar nuevos ingresos.
+
+**Lógica de Validación de Perros y Alimentación:**
+- **Comando `/registrar_perro`:** El agente valida que la imagen del perro es un **perro real** antes de registrarlo.
+- **Comando `/alimentar`:** El agente valida que la imagen muestra un **perro comiendo** antes de registrar la verificación en la blockchain.

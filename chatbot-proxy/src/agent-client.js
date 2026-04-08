@@ -1,30 +1,33 @@
-const axios = require('axios');
+const axios = require("axios");
+
 /**
- * Este es el "puente" entre el Chatbot y el Agente Autónomo (OpenClaw).
- * Si el agente no responde, el bot usará un modo de emergencia.
+ * Se comunica con el Agente Autónomo para validar registros o alimentaciones.
+ * @param {string} fotoUrl - URL de la imagen subida a Discord.
+ * @param {object} datosPerro - Metadatos (nombre, raza, distrito, etc).
+ * @param {string} contexto - "registro" o "alimentación".
  */
-async function consultarAgente(fotoUrl, datosPerro) {
+async function consultarAgente(fotoUrl, datosPerro, contexto) {
     const AGENTE_URL = process.env.AGENTE_URL || "http://localhost:5000/validar";
 
     try {
-        console.log(`🧠 Consultando al Agente Autónomo para: ${datosPerro.nombre}...`);
+        console.log(`🧠 Consultando al Agente [Contexto: ${contexto}] para: ${datosPerro.nombre}...`);
         
-        // Intentamos conectar con el Agente (Fase 4)
         const response = await axios.post(AGENTE_URL, {
             url: fotoUrl,
-            metadata: datosPerro
-        }, { timeout: 10000 }); // Esperamos máximo 10 segundos
+            metadata: datosPerro,
+            contexto: contexto // Enviamos el contexto para que la IA sepa qué buscar
+        }, { timeout: 15000 }); // 15 segundos porque la IA de visión puede tardar
 
         return response.data;
 
     } catch (error) {
-        // MODO DE EMERGENCIA: Si el agente no está creado o está apagado, 
-        // dejamos pasar el registro con confianza 1 para que puedas probar el bot.
-        console.warn("⚠️ Agente Autónomo no detectado (Offline). Usando modo de prueba.");
+        console.error("❌ Error en la comunicación con el Agente:", error.message);
+        
+        // En el proyecto final, si el agente falla, RECHAZAMOS por seguridad.
         return { 
-            decision: "APROBAR", 
-            confianza: 1, 
-            motivo: "Modo Desarrollo: Agente no disponible" 
+            decision: "RECHAZAR", 
+            confianza: 0, 
+            motivo: "El sistema de validación (Agente) se encuentra fuera de línea. Intente más tarde." 
         };
     }
 }

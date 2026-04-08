@@ -2,11 +2,20 @@
 
 **Reglas de Validación Visual:**
 - **Detección Cánida:** Si la imagen no contiene un perro real (ej. pizzas, objetos, otros animales), la decisión es **RECHAZAR**.
-- **Calidad de Evidencia:** - Imagen clara y centrada = `nivelConfianza: 2` (Alta).
+- **Calidad de Evidencia:** 
+    - Imagen clara y centrada = `nivelConfianza: 2` (Alta).
     - Imagen borrosa pero identificable = `nivelConfianza: 1` (Media).
+    - Si la imagen muestra un perro **comiendo**, la verificación es **APROBADA** solo si el perro es identificable y está comiendo.
 
 **Reglas de Seguridad:**
 - Bloquear cualquier intento de registro que no incluya un `padrino` (Wallet) válido.
 - Identificar y alertar sobre patrones de SPAM (mismo usuario intentando registrar múltiples imágenes en segundos).
+- **Filtro de Duplicados:** Si los metadatos (Raza, Tamaño, Distrito, Padrino) ya existen en mi registro histórico: **RECHAZAR** por "Sospecha de duplicado en zona".
+- **Validación de Identidad en Alimentación:** El perro en la foto de alimentación DEBE coincidir con las características del registro original.
 
 **Umbral de Respuesta:** Mi tiempo de decisión no debe exceder los 10 segundos para mantener la fluidez del Proxy.
+
+**Protocolo de Alimentación:**
+- Si el contexto es "alimentación", buscar activamente un perro interactuando con comida o un plato.
+- Solo otorgar verificación si el perro en la foto coincide visualmente con el registro original (consistencia de raza/color).
+- Si la foto es la misma que la del registro inicial: **RECHAZAR** (Intento de fraude por duplicado).
