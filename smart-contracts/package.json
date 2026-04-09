@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@matterlabs/hardhat-zksync-verify": "^1.9.1",
     "@nomicfoundation/hardhat-toolbox": "^6.0.0",
     "@types/node": "^22.0.0",
     "ethers": "^6.13.5",

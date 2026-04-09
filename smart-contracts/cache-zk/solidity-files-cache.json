@@ -10,13 +10,15 @@
         "settings": {
           "optimizer": {
             "enabled": true,
-            "mode": "3"
+            "runs": 200
           },
           "evmVersion": "paris",
           "outputSelection": {
             "*": {
               "*": [
                 "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
                 "evm.methodIdentifiers",
                 "metadata"
               ],
@@ -24,28 +26,6 @@
                 "ast"
               ]
             }
-          },
-          "detectMissingLibraries": false,
-          "forceEVMLA": false,
-          "enableEraVMExtensions": false,
-          "libraries": {}
-        },
-        "eraVersion": "1.0.1",
-        "zksolc": {
-          "version": "1.5.3",
-          "compilerSource": "binary",
-          "settings": {
-            "optimizer": {
-              "enabled": true,
-              "mode": "3"
-            },
-            "compilerPath": "C:\\Users\\Connie\\AppData\\Local\\hardhat-nodejs\\Cache\\compilers-v2\\zksolc\\zksolc-v1.5.3",
-            "missingLibrariesPath": "./.zksolc-libraries-cache/missingLibraryDependencies.json",
-            "areLibrariesMissing": false,
-            "experimental": {},
-            "libraries": {},
-            "enableEraVMExtensions": false,
-            "forceEVMLA": false
           }
         }
       },
