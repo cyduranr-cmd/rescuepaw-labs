@@ -89,4 +89,4 @@ app.post("/validar", async (req, res) => {
     }
 });
 
-//app.listen(PORT, () => console.log(`🚀 Agente Online en puerto ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Agente Online en puerto ${PORT}`));
