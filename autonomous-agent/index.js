@@ -12,10 +12,10 @@ const adapter = new FileSync('memoria_agente.json');
 const db = low(adapter);
 db.defaults({ registros_aprobados: [] }).write();
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Agente IA corriendo en puerto ${PORT}`);
-});
+//const PORT = process.env.PORT || 5000;
+//app.listen(PORT, '0.0.0.0', () => {
+  //console.log(`Agente IA corriendo en puerto ${PORT}`);
+//});
 
 // Función de IA con Limpieza de JSON
 async function analizarImagen(urlImagen, contexto) {
