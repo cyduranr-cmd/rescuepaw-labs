@@ -1,0 +1,20 @@
+{
+    "name": "rescuepaw-bot-proxy",
+    "version": "1.0.0",
+    "description": "Proxy para el bot de Discord de RescuePaw en zkSYS",
+    "main": "src/index.js",
+    "scripts": {
+      "start": "node src/index.js",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "discord.js": "^14.14.1",
+      "ethers": "^6.11.1",
+      "axios": "^1.6.7",
+      "dotenv": "^16.4.5",
+      "express": "^4.18.3"
+    }
+  }
